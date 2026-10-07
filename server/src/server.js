@@ -30,7 +30,7 @@ function loadConfig() {
         process.loadEnvFile(envFile);
     }
 
-    const databaseUrlStr = process.env.DATABASE_URL || "https://console.neon.tech/app/projects/sweet-pine-85885251/branches/br-icy-forest-b42bo2ov";
+    const databaseUrlStr = process.env.DATABASE_URL || "postgresql://neondb_owner:npg_O9ucklhRI0Eq@ep-red-sea-b4a065l9-pooler.c-6.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require";
     try {
         new URL(databaseUrlStr);
     } catch {
