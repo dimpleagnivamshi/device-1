@@ -30,7 +30,7 @@ function loadConfig() {
         process.loadEnvFile(envFile);
     }
 
-    const databaseUrlStr = process.env.DATABASE_URL || "postgres://postgres:postgres@localhost:5432/postgres";
+    const databaseUrlStr = process.env.DATABASE_URL || "https://console.neon.tech/app/projects/sweet-pine-85885251/branches/br-icy-forest-b42bo2ov";
     try {
         new URL(databaseUrlStr);
     } catch {
