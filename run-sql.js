@@ -1,7 +1,6 @@
 const { Client } = require('pg');
 
-const connectionString = "postgres://postgres:jK1DlPT07Xte5vr-Zzaf5pmsrq1dPoMJ@db-f1c4b8453015.db.getvoroa.com:20972/postgres?sslmode=require";
-
+const connectionString = "postgresql://neondb_owner:npg_J6WOQcLK1RFf@ep-wispy-dream-b53mp93o-pooler.c-7.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require";
 const client = new Client({
     connectionString: connectionString,
     ssl: { rejectUnauthorized: false }
