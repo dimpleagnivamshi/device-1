@@ -30,24 +30,24 @@ async function initializeStorage() {
                     const countRes = await pool.query(`SELECT COUNT(*)::int as c FROM telemetry_data_${i}`);
                     currentSheet = i;
                     rowCount = countRes.rows[0].c;
-                    console.log(`Resuming on Sheet ${i} with ${rowCount} rows.`);
+                    console.log(`Resuming Device 1 on Sheet ${i} with ${rowCount} rows.`);
                     return;
                 }
             }
         }
     } catch (e) {
-        console.log("Database initialized on fresh rotation loop.");
+        console.log("Database initialized on fresh rotation loop for Device 1.");
     }
 }
 
 async function getFeedState() {
-    const result = await pool.query("SELECT running, last_values FROM feed_state WHERE singleton = TRUE");
+    const result = await pool.query("SELECT running, last_values FROM feed_state WHERE device_id = 'device-1'");
     return result.rows[0] || { running: false, last_values: {} };
 }
 
 async function setFeedState(running, lastValues) {
-    const sql = "INSERT INTO feed_state (singleton, running, last_values, updated_at) VALUES (TRUE, $1, $2::jsonb, NOW()) " +
-        "ON CONFLICT (singleton) DO UPDATE SET running = EXCLUDED.running, last_values = EXCLUDED.last_values, updated_at = NOW() " +
+    const sql = "INSERT INTO feed_state (device_id, running, last_values, updated_at) VALUES ('device-1', $1, $2::jsonb, NOW()) " +
+        "ON CONFLICT (device_id) DO UPDATE SET running = EXCLUDED.running, last_values = EXCLUDED.last_values, updated_at = NOW() " +
         "RETURNING running, last_values";
     const result = await pool.query(sql, [running, JSON.stringify(lastValues || {})]);
     return result.rows[0];
